@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './Popup.scss';
+import Button, { ButtonGroup } from '@atlaskit/button'
 
 interface AppProps {}
 
@@ -19,6 +20,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
         return (
             <div className="popupContainer">
                 Hello, world!
+                <Button>click</Button>
             </div>
         )
     }
