@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/button": "^13.1.0",
+    "@atlaskit/modal-dialog": "^10.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "styled-components": "^4.3.2"
