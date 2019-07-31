@@ -1,7 +1,10 @@
 import * as React from 'react';
 import './Popup.scss';
-import Button, { ButtonGroup } from '@atlaskit/button'
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import Form, { Field } from '@atlaskit/form';
+import Button from '@atlaskit/button';
+import TextField from '@atlaskit/textfield';
+import ModalIssueCreate from "./ModalIssueCreate";
 
 interface AppProps {}
 
@@ -45,6 +48,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
                 Hello, world!
                 <Button className="floatButton" onClick={this.onButtonClick}>click</Button>
                 <ModalTransition>
+                    {isOpen && <ModalIssueCreate onClose={this.onModalClose} />}
                 {isOpen && <ModalDialog heading="Hi there 👋" onClose={this.onModalClose} autoFocus={true} />}
                 </ModalTransition>
             </div>
