@@ -31,6 +31,7 @@
     "@atlaskit/field-text": "^9.0.3",
     "@atlaskit/form": "^6.1.5",
     "@atlaskit/modal-dialog": "^10.1.0",
+    "@atlaskit/select": "^10.0.1",
     "@atlaskit/textfield": "^2.0.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
