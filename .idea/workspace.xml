@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e11d2ba3-e906-4504-91bb-60d35d54fd90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/chrome-extension-react-typescript-boilerplate.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/Popup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/Popup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/ModalIssueCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/ModalIssueCreate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,11 +15,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/popup/index.tsx">
+        <entry file="file://$PROJECT_DIR$/src/popup/Popup.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="858">
+              <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -31,39 +29,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/popup/Popup.tsx">
+        <entry file="file://$PROJECT_DIR$/node_modules/@atlaskit/modal-dialog/dist/cjs/components/ModalWrapper.d.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="14" column="60" lean-forward="true" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+            <state relative-caret-position="1452">
+              <caret line="68" column="50" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dist/popup.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webpack.dev.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webpack.prod.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/webpack.common.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-lock.json">
+        <entry file="file://$PROJECT_DIR$/src/popup/ModalIssueCreate.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            <state relative-caret-position="132">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -78,10 +56,11 @@
       <list>
         <option value="$PROJECT_DIR$/src/popup/Popup.tsx" />
         <option value="$PROJECT_DIR$/package-lock.json" />
+        <option value="$PROJECT_DIR$/src/popup/ModalIssueCreate.tsx" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="270" />
     <option name="width" value="1485" />
     <option name="height" value="1005" />
@@ -95,28 +74,17 @@
         <subPane>
           <expand>
             <path>
-              <item name="chrome-extension-react-typescript-boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chrome-extension-react-typescript-boilerplate" type="462c0819:PsiDirectoryNode" />
+              <item name="jira-issuer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jira-issuer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chrome-extension-react-typescript-boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chrome-extension-react-typescript-boilerplate" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chrome-extension-react-typescript-boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chrome-extension-react-typescript-boilerplate" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chrome-extension-react-typescript-boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chrome-extension-react-typescript-boilerplate" type="462c0819:PsiDirectoryNode" />
+              <item name="jira-issuer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jira-issuer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chrome-extension-react-typescript-boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chrome-extension-react-typescript-boilerplate" type="462c0819:PsiDirectoryNode" />
+              <item name="jira-issuer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jira-issuer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="popup" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -200,13 +168,21 @@
       <updated>1564068501173</updated>
       <workItem from="1564068504165" duration="876000" />
     </task>
+    <task id="LOCAL-00001" summary="MERGE CONFLICTS">
+      <created>1564671300906</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1564671300907</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="876000" />
+    <option name="totallyTimeSpent" value="2581000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="216" y="0" width="1188" height="804" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info id="Nl-Palette" order="0" />
       <window_info id="Capture Tool" order="1" />
@@ -214,14 +190,14 @@
       <window_info id="UI Designer" order="3" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.24955437" />
+      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.20956874" />
       <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
       <window_info anchor="bottom" id="TypeScript" order="2" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="4" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="5" visible="true" weight="0.3297546" />
+      <window_info anchor="bottom" id="Version Control" order="4" show_stripe_button="false" weight="0.32944608" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="5" visible="true" weight="0.32944608" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" />
       <window_info anchor="bottom" id="Run" order="8" />
@@ -245,6 +221,50 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="MERGE CONFLICTS" />
+    <option name="LAST_COMMIT_MESSAGE" value="MERGE CONFLICTS" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/popup/index.tsx">
       <provider selected="true" editor-type-id="text-editor">
@@ -264,8 +284,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/popup/Popup.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="14" column="60" lean-forward="true" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+        <state relative-caret-position="858">
+          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
