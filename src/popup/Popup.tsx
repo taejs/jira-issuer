@@ -46,7 +46,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
                 Hello, world!
                 <Button className="floatButton" onClick={this.onButtonClick}>click</Button>
                 <ModalTransition>
-                {isOpen && <ModalIssueCreate onClose={this.onModalClose} />}
+                    {isOpen && <ModalIssueCreate onClose={this.onModalClose} />}
                 </ModalTransition>
             </div>
         )

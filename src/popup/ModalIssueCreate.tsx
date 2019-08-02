@@ -6,7 +6,6 @@ import Form, { Field, CheckboxField } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import Select from '@atlaskit/select';
 
-
 interface AppProps {
     onClose : (e : any) => void
 }
@@ -51,17 +50,16 @@ export default class ModalIssueCreate extends React.Component<AppProps, AppState
                 onClose={onClose}
                 autoFocus={true}
                 components={{
-                    Container : (children, className) => (
+                    Container : ({ children, className }) => (
                         <Form onSubmit={this.onFormSubmit}>
-                            {({formProps} : {formProps : FormProps}) => {
+                            {({formProps}) => (
                                 <form className={className} {...formProps}>
                                     {children}
                                 </form>
-                            }}
+                            )}
                         </Form>
                     )
-                }}
-                >
+                }}>
                 <p>Enter some text then submit the form to see the response</p>
                 <Field
                     name="summary"
@@ -69,35 +67,50 @@ export default class ModalIssueCreate extends React.Component<AppProps, AppState
                     defaultValue=""
                     isRequired
                     validate={value=> (value.length < 8 ? 'TOO_SHORT' : undefined)}>
-                    <TextField autoComplete="off"/>
+                    {({fieldProps}) => (
+                        <TextField {...fieldProps} autoComplete="off"/>
+                    )}
                 </Field>
                 <Field
                     name="서비스&메뉴"
                     label="서비스&메뉴">
-                    <Select
-                        className="single-select"
-                        classNamePrefix="react-select"
-                        options={[
-                        { label: 'None', value: '' },
-                        { label: '[2.0] 관리자사이트', value: '10223'},
-                        { label: '[2.0] 평가자사이트', value: '10224'}
-                        ]}
-                        placeholder="서비스"
-                        onChange={service => this.setState({ service })}
-                    />
-                    <Select
-                        className="single-select"
-                        classNamePrefix="react-select"
-                        options={() => {
-                            const map = {
-                                '10223' : [{label : '냠냠', value : '20000'}],
-                                '10224' : [{label : '이력서팝업', value : '22'}]
-                            }
-                            const {service} = this.state;
-                            return map[service] || [];
-                        }}
-                        placeholder="메뉴"
-                    />
+                    {({fieldProps}) => (
+                        <React.Fragment>
+                            <Select
+                                className="single-select"
+                                classNamePrefix="react-select"
+                                options={[
+                                    { label: 'None', value: '' },
+                                    { label: '[2.0] 관리자사이트', value: '10223'},
+                                    { label: '[2.0] 평가자사이트', value: '10224'}
+                                ]}
+                                placeholder="서비스"
+                                onChange={(service, action) => {
+                                    if(action === 'select-option') this.setState({ service });
+                                }}
+                            />
+                            <Select
+                                className="single-select"
+                                classNamePrefix="react-select"
+                                options={(() => {
+                                    const map = {
+                                    '10223' : [{label : '냠냠', value : '20000'}],
+                                    '10224' : [{label : '이력서팝업', value : '22'}]
+                                    };
+
+                                    console.log(this);
+                                    return [{label: 'None', value : ''}];
+                                    /*const {service} = this.state;
+                                    console.log(service);
+
+                                    let result = map[service] || [];
+                                    result.push([{label: 'None', value : ''}])
+                                    return result;*/
+                                })()}
+                                placeholder="메뉴"
+                            />
+                        </React.Fragment>
+                    )}
                 </Field>
             </ModalDialog>
         )
