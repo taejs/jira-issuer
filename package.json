@@ -10,6 +10,10 @@
   },
   "author": "Joe Martella",
   "license": "MIT",
+  "permissions": [
+    "https://*.atlassian.com/",
+    "https://*.atlassian.net/"
+  ],
   "devDependencies": {
     "@types/chrome": "0.0.60",
     "@types/react": "^16.0.40",

@@ -7,6 +7,7 @@ import ModalIssueCreate from "./ModalIssueCreate";
 interface AppProps {}
 
 interface AppState {
+    isLoggedIn : boolean,
     isOpen : boolean
 }
 
@@ -14,10 +15,11 @@ export default class Popup extends React.Component<AppProps, AppState> {
     constructor(props: AppProps, state: AppState) {
         super(props, state);
         this.state = {
-            isOpen : false
+            isOpen : false,
+            isLoggedIn : false
         };
-        this.onButtonClick = this.onButtonClick.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
+        this.onButtonClick = this.onButtonClick.bind(this);
     }
 
     componentDidMount() {
@@ -32,22 +34,36 @@ export default class Popup extends React.Component<AppProps, AppState> {
     }
 
     onButtonClick(e) {
-        this.changeModalState(true);
+
+        chrome.identity.launchWebAuthFlow(
+            {'url': 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=tmi53Gr2TISSaWud3wQ1wu7do0MNvq27&scope=read%3Ajira-user%20manage%3Ajira-project%20manage%3Ajira-configuration%20write%3Ajira-work%20read%3Ajira-work%20manage%3Ajira-data-provider&redirect_uri=https%3A%2F%2Fwww.atlassian.com%2Frobots.txt&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent', 'interactive': true},
+            function(redirect_url) {
+                /* Extract token from redirect_url */
+                console.log(redirect_url);
+            });
     }
 
     onModalClose(e) {
         this.changeModalState(false);
     }
 
+
     render() {
-        const { isOpen } = this.state;
+        const { isLoggedIn, isOpen } = this.state;
+        const LoggedInUI =
+            <React.Fragment>
+                <Button className="floatButton" onClick={() => {this.changeModalState(true);}}>click</Button>
+                <ModalTransition>
+                    {isOpen && <ModalIssueCreate onClose={this.onModalClose} />}
+                </ModalTransition>
+            </React.Fragment>;
+
+        const LoginUI =
+            <Button onClick={this.onButtonClick}>JIRA Login</Button>;
+
         return (
             <div className="popupContainer">
-                Hello, world!
-                <Button className="floatButton" onClick={this.onButtonClick}>click</Button>
-                <ModalTransition>
-                {isOpen && <ModalIssueCreate onClose={this.onModalClose} />}
-                </ModalTransition>
+                {isLoggedIn ? LoggedInUI : LoginUI}
             </div>
         )
     }
