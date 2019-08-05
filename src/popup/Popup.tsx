@@ -34,13 +34,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
     }
 
     onButtonClick(e) {
-
-        chrome.identity.launchWebAuthFlow(
-            {'url': 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=tmi53Gr2TISSaWud3wQ1wu7do0MNvq27&scope=read%3Ajira-user%20manage%3Ajira-project%20manage%3Ajira-configuration%20write%3Ajira-work%20read%3Ajira-work%20manage%3Ajira-data-provider&redirect_uri=https%3A%2F%2Fwww.atlassian.com%2Frobots.txt&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent', 'interactive': true},
-            function(redirect_url) {
-                /* Extract token from redirect_url */
-                console.log(redirect_url);
-            });
+        chrome.runtime.sendMessage({ oauth: true });
     }
 
     onModalClose(e) {
@@ -59,7 +53,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
             </React.Fragment>;
 
         const LoginUI =
-            <Button onClick={this.onButtonClick}>JIRA Login</Button>;
+            <Button className="floatButton" onClick={this.onButtonClick}>JIRA Login</Button>;
 
         return (
             <div className="popupContainer">
