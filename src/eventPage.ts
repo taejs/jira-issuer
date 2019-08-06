@@ -47,27 +47,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 },
                 method: "POST"
             })
-                .then((v) => v.json())
-                .then(function(data : TokenProps) {
-                    // do something with your data
-                    let ACCESS_TOKEN = data.access_token;
-                    let TOKEN_TYPE = data.token_type;
-                    myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
-                    myHeaders.append("Accept", `application/json`);
+            .then((v) => v.json())
+            .then(function(data : TokenProps) {
+                // do something with your data
+                let ACCESS_TOKEN = data.access_token;
+                let TOKEN_TYPE = data.token_type;
+                myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
+                myHeaders.append("Accept", `application/json`);
 
-                    return fetch("https://api.atlassian.com/oauth/token/accessible-resources", {
-                        headers: myHeaders
-                    })
-                }).then((v) => v.json())
-                .then((data : APIRequestProps)=>{
-                    CLOUD_ID = data[0].id;
-                    return fetch(`https://api.atlassian.com/ex/jira/${CLOUD_ID}/${request.api}`, {
-                        headers : myHeaders
-                    })
-                }).then(v => v.json())
-                .then(v=>console.log(v))
-                .catch(error => console.log("error:", error));
-                //TODO refactor to async/await
+                return fetch("https://api.atlassian.com/oauth/token/accessible-resources", {
+                    headers: myHeaders
+                })
+            }).then((v) => v.json())
+            .then((data : APIRequestProps)=>{
+                CLOUD_ID = data[0].id;
+                return fetch(`https://api.atlassian.com/ex/jira/${CLOUD_ID}/${request.api}`, {
+                    headers : myHeaders
+                })
+            }).then(v => v.json())
+            .then(v=>
+                sendResponse({ json: v }))
+            .catch(error => console.log("error:", error));
+            //TODO refactor to async/await
+
+            return true;
         });
     }
 
