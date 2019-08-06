@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // onMessage must return "true" if response is async.
     let isResponseAsync = false;
 
+    //TODO differentiate get/post api
     if (request.popupMounted) {
         console.log('eventPage notified that Popup.tsx has mounted.');
     } else if(request.api) {
@@ -39,6 +40,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             let YOUR_APP_CALLBACK_URL = 'https://nchdjmlnhfdfkmpjhjfifbacclccaaih.chromiumapp.org/';
             let myHeaders = new Headers();
             let CLOUD_ID;
+            let ACCESS_TOKEN;
+            let TOKEN_TYPE;
 
             fetch("https://auth.atlassian.com/oauth/token", {
                 body: `{\"grant_type\": \"authorization_code\",\"client_id\": \"${YOUR_CLIENT_ID}\",\"client_secret\": \"${YOUR_CLIENT_SECRET}\",\"code\": \"${YOUR_AUTHORIZATION_CODE}\",\"redirect_uri\": \"${YOUR_APP_CALLBACK_URL}\"}`,
@@ -50,8 +53,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             .then((v) => v.json())
             .then(function(data : TokenProps) {
                 // do something with your data
-                let ACCESS_TOKEN = data.access_token;
-                let TOKEN_TYPE = data.token_type;
+                ACCESS_TOKEN = data.access_token;
+                TOKEN_TYPE = data.token_type;
                 myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
                 myHeaders.append("Accept", `application/json`);
 
@@ -65,8 +68,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     headers : myHeaders
                 })
             }).then(v => v.json())
-            .then(v=>
-                sendResponse({ json: v }))
+            .then(v=> {
+                chrome.storage.local.set({ "ACCESS_TOKEN": ACCESS_TOKEN }, function(){
+                    sendResponse({
+                        json: v
+                    })
+                });
+            })
             .catch(error => console.log("error:", error));
             //TODO refactor to async/await
 
