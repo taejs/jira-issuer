@@ -28,5 +28,14 @@
         "128": "icon128.png"
     },
 
-    "permissions": []
+    "permissions": [
+        "identity",
+        "https://*.atlassian.com/",
+        "https://*.atlassian.net/",
+        "https://api.atlassian.com/oauth/token/accessible-resources"
+    ],
+    "oauth2": {
+        "client_id": "tmi53Gr2TISSaWud3wQ1wu7do0MNvq27",
+        "scopes": ["https://api.atlassian.com/oauth/token/accessible-resources"]
+    }
 }
