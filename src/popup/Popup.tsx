@@ -34,7 +34,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
     }
 
     onButtonClick(e) {
-        chrome.runtime.sendMessage({ oauth: true });
+        chrome.runtime.sendMessage({ api: 'rest/api/2/project'});
     }
 
     onModalClose(e) {

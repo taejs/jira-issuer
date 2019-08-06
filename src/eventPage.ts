@@ -6,13 +6,20 @@ interface TokenProps {
     scope: string,
     token_type: string
 }
+interface APIRequestProps {
+    avatarUrl: string,
+    id: string,
+    name: string,
+    scopes: string[],
+    url: string
+}
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // onMessage must return "true" if response is async.
     let isResponseAsync = false;
 
     if (request.popupMounted) {
         console.log('eventPage notified that Popup.tsx has mounted.');
-    } else if(request.oauth) {
+    } else if(request.api) {
         chrome.identity.launchWebAuthFlow(
         {'url': 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=tmi53Gr2TISSaWud3wQ1wu7do0MNvq27&scope=read%3Ajira-user%20manage%3Ajira-project%20manage%3Ajira-configuration%20write%3Ajira-work%20read%3Ajira-work%20manage%3Ajira-data-provider&redirect_uri=https%3A%2F%2Fnchdjmlnhfdfkmpjhjfifbacclccaaih.chromiumapp.org%2F&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent', 'interactive': true},
         function(redirect_url) {
@@ -30,6 +37,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             let YOUR_CLIENT_ID = 'tmi53Gr2TISSaWud3wQ1wu7do0MNvq27';
             let YOUR_CLIENT_SECRET = 'wsEtWQh7bJ9s1wnwHjngX4azdv1jq6kcZDfCHNi1qsI5WiVVDS9N4MKQl37abfss';
             let YOUR_APP_CALLBACK_URL = 'https://nchdjmlnhfdfkmpjhjfifbacclccaaih.chromiumapp.org/';
+            let myHeaders = new Headers();
+            let CLOUD_ID;
 
             fetch("https://auth.atlassian.com/oauth/token", {
                 body: `{\"grant_type\": \"authorization_code\",\"client_id\": \"${YOUR_CLIENT_ID}\",\"client_secret\": \"${YOUR_CLIENT_SECRET}\",\"code\": \"${YOUR_AUTHORIZATION_CODE}\",\"redirect_uri\": \"${YOUR_APP_CALLBACK_URL}\"}`,
@@ -38,23 +47,27 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 },
                 method: "POST"
             })
-            .then((v) => v.json())
-            .then(function(data : TokenProps) {
-                // do something with your data
-                let ACCESS_TOKEN = data.access_token;
-                let TOKEN_TYPE = data.token_type;
-                let myHeaders = new Headers();
-                myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
-                myHeaders.append("Accept", `application/json`);
+                .then((v) => v.json())
+                .then(function(data : TokenProps) {
+                    // do something with your data
+                    let ACCESS_TOKEN = data.access_token;
+                    let TOKEN_TYPE = data.token_type;
+                    myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
+                    myHeaders.append("Accept", `application/json`);
 
-                myHeaders;
-                return fetch("https://api.atlassian.com/oauth/token/accessible-resources", {
-                    headers: myHeaders
-                })
-            }).then((v) => {
-                return v.json()
-            }).then((v)=>console.log(v))
-            .catch(error => console.log("error:", error));;
+                    return fetch("https://api.atlassian.com/oauth/token/accessible-resources", {
+                        headers: myHeaders
+                    })
+                }).then((v) => v.json())
+                .then((data : APIRequestProps)=>{
+                    CLOUD_ID = data[0].id;
+                    return fetch(`https://api.atlassian.com/ex/jira/${CLOUD_ID}/${request.api}`, {
+                        headers : myHeaders
+                    })
+                }).then(v => v.json())
+                .then(v=>console.log(v))
+                .catch(error => console.log("error:", error));
+                //TODO refactor to async/await
         });
     }
 
