@@ -28,6 +28,7 @@
 
     "permissions": [
         "identity",
+        "storage",
         "https://*.atlassian.com/",
         "https://*.atlassian.net/",
         "https://api.atlassian.com/oauth/token/accessible-resources"
