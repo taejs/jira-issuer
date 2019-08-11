@@ -6,8 +6,15 @@ interface TokenProps {
     scope: string,
     token_type: string
 }
+
+interface RequestHeaders{
+    ACCESS_TOKEN : string,
+    TOKEN_TYPE : string,
+    CLOUD_ID : string
+}
+
 (function() {
-    var getAccessToken = function(request, sender, sendResponse, sCallback) {
+    var getAccessToken = function(request, sender, sendResponse) {
         return new Promise(function(resolve, reject) {
             chrome.identity.launchWebAuthFlow(
                 {'url': 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=tmi53Gr2TISSaWud3wQ1wu7do0MNvq27&scope=read%3Ajira-user%20manage%3Ajira-project%20manage%3Ajira-configuration%20write%3Ajira-work%20read%3Ajira-work%20manage%3Ajira-data-provider&redirect_uri=https%3A%2F%2Fnchdjmlnhfdfkmpjhjfifbacclccaaih.chromiumapp.org%2F&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent', 'interactive': true},
@@ -57,7 +64,7 @@ interface TokenProps {
                                 "TOKEN_TYPE" : TOKEN_TYPE,
                                 "CLOUD_ID" : CLOUD_ID
                             }, function() {
-                                sCallback();
+                                resolve({ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID});
                             });
                         })
                     //TODO refactor to async/await
@@ -95,7 +102,14 @@ interface TokenProps {
                     //TODO refactor to async/await
                 };
 
-                //if(!items) getAccessToken()
+                let api = request.api;
+                let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = items;
+
+                if(!items) getAccessToken(request, sender, sendResponse).then((result : RequestHeaders)=> {
+                    let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = result;
+                    callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID);
+                });
+                else callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID)
             });
         }
 
