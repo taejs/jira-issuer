@@ -7,7 +7,6 @@ import TextField from '@atlaskit/textfield';
 import Select from '@atlaskit/select';
 
 interface AppProps {
-    onClose : (e : any) => void
 }
 
 interface AppState {
@@ -37,29 +36,9 @@ export default class ModalIssueCreate extends React.Component<AppProps, AppState
             onKeyDown : (e:React.KeyboardEvent) => void
         }
 
-        const actions = [
-            { text : 'Create Issue' , onClick : this.createIssue },
-            { text : 'Close', onClick : this.props.onClose }
-        ]
 
-        const { onClose } = this.props;
-        return (
-            <ModalDialog
-                actions={actions}
-                heading="Hi there 👋"
-                onClose={onClose}
-                autoFocus={true}
-                components={{
-                    Container : ({ children, className }) => (
-                        <Form onSubmit={this.onFormSubmit}>
-                            {({formProps}) => (
-                                <form className={className} {...formProps}>
-                                    {children}
-                                </form>
-                            )}
-                        </Form>
-                    )
-                }}>
+        const form = () => (
+            <React.Fragment>
                 <p>Enter some text then submit the form to see the response</p>
                 <Field
                     name="summary"
@@ -94,8 +73,8 @@ export default class ModalIssueCreate extends React.Component<AppProps, AppState
                                 classNamePrefix="react-select"
                                 options={(() => {
                                     const map = {
-                                    '10223' : [{label : '냠냠', value : '20000'}],
-                                    '10224' : [{label : '이력서팝업', value : '22'}]
+                                        '10223' : [{label : '냠냠', value : '20000'}],
+                                        '10224' : [{label : '이력서팝업', value : '22'}]
                                     };
 
                                     console.log(this);
@@ -112,7 +91,17 @@ export default class ModalIssueCreate extends React.Component<AppProps, AppState
                         </React.Fragment>
                     )}
                 </Field>
-            </ModalDialog>
+            </React.Fragment>
+        )
+
+        return (
+            <Form onSubmit={this.onFormSubmit}>
+                {({formProps}) => (
+                    <form {...formProps}>
+                        {}
+                    </form>
+                )}
+            </Form>
         )
     }
 }

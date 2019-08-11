@@ -105,7 +105,7 @@ interface RequestHeaders{
                 let api = request.api;
                 let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = items;
 
-                if(!items) getAccessToken(request, sender, sendResponse).then((result : RequestHeaders)=> {
+                if(!items || !items.ACCESS_TOKEN) getAccessToken(request, sender, sendResponse).then((result : RequestHeaders)=> {
                     let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = result;
                     callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID);
                 });
@@ -120,11 +120,11 @@ interface RequestHeaders{
     chrome.browserAction.onClicked.addListener(function (tab) {
         // Send a message to the active tab
         chrome.tabs.query({active: true, currentWindow: true},
-            function (tabs) {
-                var activeTab = tabs[0];
-                chrome.tabs.sendMessage(activeTab.id,
-                    {"message": "clicked_browser_action"}
-                );
-            });
+        function (tabs) {
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id,
+                {"message": "clicked_browser_action"}
+            );
+        });
     });
 })();
