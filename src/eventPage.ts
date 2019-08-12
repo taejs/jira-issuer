@@ -80,7 +80,7 @@ interface RequestHeaders{
         //TODO differentiate get/post api
         if (request.popupMounted) {
             console.log('eventPage notified that Popup.tsx has mounted.');
-        } else if (request.api) {
+        } else if (request.hasOwnProperty('api')) {
             chrome.storage.local.get(['ACCESS_TOKEN', 'TOKEN_TYPE', 'CLOUD_ID'], function(items) {
                 var callApi = function(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID) {
                     let myHeaders = new Headers();
@@ -105,10 +105,17 @@ interface RequestHeaders{
                 let api = request.api;
                 let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = items;
 
-                if(!items || !items.ACCESS_TOKEN) getAccessToken(request, sender, sendResponse).then((result : RequestHeaders)=> {
-                    let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = result;
-                    callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID);
-                });
+                if(api === null) {
+                    getAccessToken(request, sender, sendResponse).then((result : RequestHeaders)=> {
+                        sendResponse(result);
+                    })
+                }
+                else if(!items || !items.ACCESS_TOKEN) {
+                    getAccessToken(request, sender, sendResponse).then((result: RequestHeaders) => {
+                        let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = result;
+                        callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID);
+                    })
+                }
                 else callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID)
             });
         }

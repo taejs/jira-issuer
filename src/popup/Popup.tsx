@@ -4,6 +4,7 @@ import Button, { ButtonGroup } from '@atlaskit/button'
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import Setting from './container/Setting';
 import CreateIssue from './container/CreateIssue';
+import {ModalContainerList} from "./types/enum";
 
 interface AppProps {}
 
@@ -11,36 +12,6 @@ interface AppState {
     isLoggedIn : boolean,
     isOpen : boolean,
     currentContainer : ModalContainerList
-}
-interface IssueType {
-    self : string,
-    id  : string,
-    description : string,
-    iconUrl : string,
-    name : string,
-    subtask :boolean,
-    avatarId : number,
-    entityId : string,
-    scope : object,
-    expand : string,
-    fields : object
-}
-interface ProjectIssueCreateMetadata {
-    expand: string,
-    self : string,
-    id : string,
-    key : string,
-    name : string,
-    avatarUrls : object,
-    issuetypes : IssueType[]
-}
-interface CreateMetaJson {
-    projects : ProjectIssueCreateMetadata[],
-    expand? : string
-}
-
-interface CreateMetaProps {
-    json : CreateMetaJson
 }
 
 export default class Popup extends React.Component<AppProps, AppState> {
@@ -56,6 +27,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
     }
 
     componentDidMount() {
+        chrome.storage.local.clear();
         // Example of how to send a message to eventPage.ts.
         chrome.runtime.sendMessage({ popupMounted: true });
     }
@@ -67,8 +39,11 @@ export default class Popup extends React.Component<AppProps, AppState> {
     }
 
     onButtonClick(e) {
-        chrome.runtime.sendMessage({ api: 'rest/api/3/issue/createmeta'}, function(response : CreateMetaProps) {
-            console.log(response.json);
+        let self = this;
+        ///TODO there's no way to make aouth call without api uri
+        chrome.runtime.sendMessage({ api : null}, function(response) {
+            console.log('test');
+            self.setState({isLoggedIn : true})
         });
     }
 
