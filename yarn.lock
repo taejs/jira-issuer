@@ -145,10 +145,10 @@
     tiny-invariant "^0.0.3"
     tslib "^1.9.3"
 
-"@atlaskit/select@^10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@atlaskit/select/-/select-10.0.1.tgz#47d352f79163e0305bb59d9d126230df4eff6c52"
-  integrity sha512-P++qAEBqFG1zeRrF89sDxahWGhCXYZ3TqHKEybBmu0t8DmmF/Fr3/5+ZtSQ4Cstr3z+OoQV20LD3Q+PMC4kcmg==
+"@atlaskit/select@^10.0.2":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@atlaskit/select/-/select-10.0.2.tgz#a2d562ed465ce44a24cf09c89265dcd9bc919ebe"
+  integrity sha512-LEB1bqW+RdElzB+FYAEYQpLs4iJ8iKUfQPW5GUArYEbZ/jXI8M6/GTeFxgi9fuwo0oYYv85ZjMC9sqB4sqajcw==
   dependencies:
     "@atlaskit/analytics-next" "^5.1.2"
     "@atlaskit/icon" "^19.0.0"
@@ -162,7 +162,6 @@
     react-node-resolver "^1.0.1"
     react-popper "1.0.2"
     react-select "^3.0.4"
-    react-transition-group "^2.2.1"
     shallow-equal "^1.0.0"
 
 "@atlaskit/spinner@^12.0.1", "@atlaskit/spinner@^12.0.5":

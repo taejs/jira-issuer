@@ -1,5 +1,5 @@
 
-enum ModalContainerList {
+export enum ModalContainerList {
     CreateIssue,
     Setting
 }

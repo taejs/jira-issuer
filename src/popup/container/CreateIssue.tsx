@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './Popup.scss';
 import Button, { ButtonGroup } from '@atlaskit/button'
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import Form, { Field, CheckboxField } from '@atlaskit/form';
