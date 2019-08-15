@@ -19,15 +19,15 @@ export default class Popup extends React.Component<AppProps, AppState> {
         super(props, state);
         this.state = {
             isOpen : false,
-            isLoggedIn : false,
+            isLoggedIn : true,
             currentContainer : ModalContainerList.Setting
         };
         this.onModalClose = this.onModalClose.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this);
+        this.changeModalState = this.changeModalState.bind(this);
     }
 
     componentDidMount() {
-        chrome.storage.local.clear();
         // Example of how to send a message to eventPage.ts.
         chrome.runtime.sendMessage({ popupMounted: true });
     }
@@ -54,13 +54,13 @@ export default class Popup extends React.Component<AppProps, AppState> {
 
     render() {
         const { isLoggedIn, isOpen } = this.state;
-        const currentContainer = () => {
+        const currentContainer = (ref, children) => {
             const {currentContainer} = this.state;
             switch(currentContainer) {
                 case ModalContainerList.Setting:
-                    return <Setting/>
+                    return <Setting ref={ref}>{children}</Setting>
                 case ModalContainerList.CreateIssue:
-                    return <CreateIssue/>
+                    return <CreateIssue ref={ref}>{children}</CreateIssue>
                 default:
                     throw new Error('"currentContainer" value is Empty');
             }
@@ -71,10 +71,19 @@ export default class Popup extends React.Component<AppProps, AppState> {
                 <Button className="floatButton" onClick={() => {this.changeModalState(true);}}>click</Button>
                 <ModalTransition>
                     {isOpen && <ModalDialog
+                        heading="hi there"
                         onClose={this.onModalClose}
                         autoFocus={true}
+                        actions={[
+                            { text: 'Close', onClick: ()=>{this.changeModalState(false)}}
+                        ]}
                         components={{
-                            Container : ({ children, className }) => currentContainer()
+                            Body : React.forwardRef<
+                                HTMLDivElement,
+                                React.AllHTMLAttributes<HTMLDivElement>
+                                >((props, ref) => {
+                                    return currentContainer(ref, props.children);
+                            })
                         }}>
                     </ModalDialog>}
                 </ModalTransition>

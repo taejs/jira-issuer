@@ -69,10 +69,10 @@
     "@atlaskit/theme" "^9.1.1"
     "@babel/runtime" "^7.0.0"
 
-"@atlaskit/form@^6.1.5":
-  version "6.1.5"
-  resolved "https://registry.yarnpkg.com/@atlaskit/form/-/form-6.1.5.tgz#af5d4472cf1cd75b45c7d70b18bfe0726adaaee9"
-  integrity sha512-VKoyHxLAp85eniIKcaIWfu5lZlps9xap1ruoIlmsDe4NitoeKyT4KhdR40YOWI9ETlIoUzj9K8obi/0nVkpvXw==
+"@atlaskit/form@^6.1.6":
+  version "6.1.6"
+  resolved "https://registry.yarnpkg.com/@atlaskit/form/-/form-6.1.6.tgz#3113ed049b5f066206cbcf200f595aaa4cbf69ae"
+  integrity sha512-eniOda97xgTykx532HlMVlxRwbYg76DptPpbB4s4y8qB8xzzd0aDVMtUYZ9D2s7wFgURjHoNq3et8f2cxJARPg==
   dependencies:
     "@atlaskit/icon" "^19.0.0"
     "@atlaskit/theme" "^9.1.1"
