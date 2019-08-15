@@ -13,6 +13,8 @@ interface RequestHeaders{
     CLOUD_ID : string
 }
 
+chrome.storage.local.clear();
+
 (function() {
     var getAccessToken = function(request, sender, sendResponse) {
         return new Promise(function(resolve, reject) {
@@ -106,9 +108,11 @@ interface RequestHeaders{
                 let {ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID} = items;
 
                 if(api === null) {
-                    getAccessToken(request, sender, sendResponse).then((result : RequestHeaders)=> {
-                        sendResponse(result);
-                    })
+                    if(!items || !items.ACCESS_TOKEN) {
+                        getAccessToken(request, sender, sendResponse).then((result: RequestHeaders) => {
+                            sendResponse(result);
+                        })
+                    } else sendResponse(items);
                 }
                 else if(!items || !items.ACCESS_TOKEN) {
                     getAccessToken(request, sender, sendResponse).then((result: RequestHeaders) => {

@@ -13,7 +13,7 @@ interface AppState {
 }
 
 
-export default class ModalIssueCreate extends React.Component<AppProps, AppState> {
+export default class CreateIssue extends React.Component<AppProps, AppState> {
     constructor(props: AppProps, state: AppState) {
         super(props, state);
         this.createIssue = this.createIssue.bind(this);

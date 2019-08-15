@@ -41,7 +41,7 @@ interface CreateMetaJson {
 interface CreateMetaProps {
     json : CreateMetaJson
 }
-export default class Popup extends React.Component<AppProps, AppState> {
+export default class Setting extends React.Component<AppProps, AppState> {
     constructor(props: AppProps, state: AppState) {
         super(props, state);
         this.state = {
@@ -64,6 +64,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
     render() {
         let {isLoaded} = this.state;
         const Form = <div>
+            왜안대~
             <Select
                 options={this.state.projects.map((v)=>{return {label : v['name'], value : v['id'], avatar : v['avatarUrls']['16x16']}})}
                 components={{
@@ -78,13 +79,14 @@ export default class Popup extends React.Component<AppProps, AppState> {
         </div>;
         return (
             <div className="popupContainer">
-                {isLoaded ? <Spinner
+                {/*{isLoaded ? <Spinner
                     delay={0}
                     invertColor={false}
                     size="large"
                     onComplete={()=>{}}
                     isCompleting={isLoaded}
-                /> : Form }
+                /> : Form }*/}
+                왜안되냐말
             </div>
         )
     }
