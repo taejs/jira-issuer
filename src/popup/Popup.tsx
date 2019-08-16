@@ -54,13 +54,13 @@ export default class Popup extends React.Component<AppProps, AppState> {
 
     render() {
         const { isLoggedIn, isOpen } = this.state;
-        const currentContainer = (ref, children) => {
+        const currentContainer = (props, ref) => {
             const {currentContainer} = this.state;
             switch(currentContainer) {
                 case ModalContainerList.Setting:
-                    return <Setting ref={ref}>{children}</Setting>
+                    return <div ref={ref} {...props}><Setting></Setting></div>
                 case ModalContainerList.CreateIssue:
-                    return <CreateIssue ref={ref}>{children}</CreateIssue>
+                    return <div ref={ref} {...props}><CreateIssue></CreateIssue></div>
                 default:
                     throw new Error('"currentContainer" value is Empty');
             }
@@ -82,7 +82,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
                                 HTMLDivElement,
                                 React.AllHTMLAttributes<HTMLDivElement>
                                 >((props, ref) => {
-                                    return currentContainer(ref, props.children);
+                                    return currentContainer(props, ref);
                             })
                         }}>
                     </ModalDialog>}
