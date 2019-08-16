@@ -11,6 +11,7 @@ interface AppProps {}
 interface AppState {
     isLoggedIn : boolean,
     isOpen : boolean,
+    projectId : number | null,
     currentContainer : ModalContainerList
 }
 
@@ -20,11 +21,13 @@ export default class Popup extends React.Component<AppProps, AppState> {
         this.state = {
             isOpen : false,
             isLoggedIn : true,
-            currentContainer : ModalContainerList.Setting
+            currentContainer : ModalContainerList.Setting,
+            projectId : null
         };
         this.onModalClose = this.onModalClose.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this);
         this.changeModalState = this.changeModalState.bind(this);
+        this.onSettingSave = this.onSettingSave.bind(this);
     }
 
     componentDidMount() {
@@ -51,6 +54,11 @@ export default class Popup extends React.Component<AppProps, AppState> {
         this.changeModalState(false);
     }
 
+    onSettingSave(projectId : number){
+        this.setState({
+            projectId : projectId
+        });
+    }
 
     render() {
         const { isLoggedIn, isOpen } = this.state;
@@ -58,11 +66,11 @@ export default class Popup extends React.Component<AppProps, AppState> {
             const {currentContainer} = this.state;
             switch(currentContainer) {
                 case ModalContainerList.Setting:
-                    return <div ref={ref} {...props}><Setting></Setting></div>
-                case ModalContainerList.CreateIssue:
-                    return <div ref={ref} {...props}><CreateIssue></CreateIssue></div>
+                    return <div ref={ref} {...props}><Setting onSettingSave={this.onSettingSave}></Setting></div>
+                /*case ModalContainerList.CreateIssue:
+                    return <div ref={ref} {...props}><CreateIssue></CreateIssue></div>*/
                 default:
-                    throw new Error('"currentContainer" value is Empty');
+                    return <div ref={ref} {...props}></div>;
             }
         }
 
@@ -72,6 +80,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
                 <ModalTransition>
                     {isOpen && <ModalDialog
                         heading="hi there"
+                        height="100%"
                         onClose={this.onModalClose}
                         autoFocus={true}
                         actions={[

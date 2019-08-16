@@ -4,10 +4,13 @@ import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import Spinner from '@atlaskit/spinner';
 import Select from '@atlaskit/select';
 import Form, {Field} from '@atlaskit/form'
-interface AppProps {}
+interface AppProps {
+    onSettingSave : (number)=>{}
+}
 
 interface AppState {
     isLoaded : boolean,
+    projectId : number | null,
     projects : any
 //    projects : ProjectIssueCreateMetadata[]
 }
@@ -60,7 +63,8 @@ export default class Setting extends React.Component<AppProps, AppState> {
     constructor(props: AppProps, state: AppState) {
         super(props, state);
         this.state = {
-            isLoaded : false,
+            projectId : null,
+            isLoaded : true,
             projects : [
                 {
                     "expand": "issuetypes",
@@ -146,10 +150,15 @@ export default class Setting extends React.Component<AppProps, AppState> {
             ]
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onClickSaveButton = this.onClickSaveButton.bind(this);
     }
 
     onFormSubmit() {
-        /**/
+        console.log('타쿠왕')
+    }
+
+    onClickSaveButton() {
+        this.props.onSettingSave(this.state.projectId)
     }
 
     componentDidMount() {
@@ -163,34 +172,37 @@ export default class Setting extends React.Component<AppProps, AppState> {
 
     render() {
         let {isLoaded} = this.state;
-        const renderForm =
-            <Form onSubmit={this.onFormSubmit}>
-                <p>Enter some text then submit the form to see the response.</p>
-                <Field label="Failed Select" name="fail-city" >
-                {/*<Field label="Failed Select" name="fail-city" validate={validate}>*/}
+        console.log(this.state.projects);
+        console.log(this.state.projects.map((v)=>{return {label : v['name'], value : v['id'], avatar : v['avatarUrls']['16x16']}}));
+
+        const renderForm = () => {
+            return (
+                <Field label="Projects" name="project" >
                     {({ fieldProps, error, meta: { valid } }) => (
                         <React.Fragment>
                             <Select
-                                {...fieldProps}
-                                options={this.state.projects.map((v)=>{return {label : v['name'], value : v['id'], avatar : v['avatarUrls']['16x16']}})}
-                                placeholder="Choose a City"
-                                //validationState={getValidationState(error, valid)}
+                                onChange={projectId => this.setState(projectId)}
+                                options={this.state.projects.map((v)=>{return {label : v['name'], value : v['id']}})}
+                                placeholder="Select a project"
                             />
-                           {/* {error === 'EMPTY' && <ErrorMessage>{errorMsg}</ErrorMessage>}*/}
                         </React.Fragment>
                     )}
                 </Field>
-            </Form>;
+            );
+        }
+
         return (
             <div className="popupContainer">
-                {/*{isLoaded ? <Spinner
+                <p>Here is something to choose before we start</p>
+                {isLoaded ? renderForm() :
+                    <Spinner
                     delay={0}
                     invertColor={false}
                     size="large"
                     onComplete={()=>{}}
                     isCompleting={isLoaded}
-                /> : renderForm }*/}
-                왜안되냐말
+                />}
+                <Button onClick={this.onClickSaveButton}>Save</Button>
             </div>
         )
     }
