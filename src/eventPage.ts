@@ -77,7 +77,7 @@ chrome.storage.local.clear();
     }
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // onMessage must return "true" if response is async.
-        let isResponseAsync = false;
+        let isResponseAsync = true;
 
         //TODO differentiate get/post api
         if (request.popupMounted) {
@@ -120,7 +120,7 @@ chrome.storage.local.clear();
                         callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID);
                     })
                 }
-                else callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID)
+                else callApi(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID);
             });
         }
 
