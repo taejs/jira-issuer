@@ -3,15 +3,27 @@ import Button, { ButtonGroup } from '@atlaskit/button'
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import Spinner from '@atlaskit/spinner';
 import Select from '@atlaskit/select';
-import Form, {Field} from '@atlaskit/form'
+import Form, {
+    CheckboxField,
+    Field,
+    FormFooter,
+    HelperMessage,
+    ErrorMessage,
+    ValidMessage
+} from '@atlaskit/form';
+
+interface SettingVO {
+    projectId : string,
+    issueTypeId : string
+}
 interface AppProps {
-    onSettingSave: (projectId: number) => void
+    onSettingSave: (settigVo : SettingVO) => void
 }
 
 interface AppState {
     isLoaded : boolean,
-    projectId : number | null,
-    issueTypeId : number | null,
+    projectId : string | null,
+    issueTypeId : string | null,
     projects : any
 //    projects : ProjectIssueCreateMetadata[]
 }
@@ -78,7 +90,11 @@ export default class Setting extends React.Component<AppProps, AppState> {
     }
 
     onClickSaveButton() {
-        this.props.onSettingSave(this.state.projectId);
+        const {projectId, issueTypeId} = this.state;
+        this.props.onSettingSave({
+            projectId,
+            issueTypeId
+        });
     }
 
     componentDidMount() {
@@ -96,55 +112,64 @@ export default class Setting extends React.Component<AppProps, AppState> {
         const {isLoaded} = this.state;
         const renderForm = () => {
             let {projectId, projects} = this.state;
+            console.log(this.state);
             return (
-                <React.Fragment>
-                <Field label="Projects" name="project" >
-                    {({ fieldProps, error, meta: { valid } }) => (
-                        <React.Fragment>
-                            <Select
-                                onChange={projectId => this.setState({projectId}, ()=>{console.log(this.state)})}
-                                options={projects.map((v)=>{return {label : v['name'], value : v['id']}})}
-                                placeholder="Select a project"
-                            />
-                        </React.Fragment>
-                    )}
-                </Field>
-                <Field label="IssueTypes" name="issue types" >
-                    {({ fieldProps, error, meta: { valid } }) => {
-                        const project = projectId ? projects.filter((v) => v.id === projectId) : null;
-                        const options = project ? project.issuetypes.map((v) => {
-                            return {label: v['name'], value: v['id']}
-                        }) : [];
+                <Form onSubmit={this.onClickSaveButton}>
+                    {({ formProps, submitting }) => (
+                        <form {...formProps}>
+                            <Field label="Projects" name="project" >
+                                {({ fieldProps, error, meta: { valid } }) => (
+                                    <React.Fragment>
+                                        <Select
+                                            onChange={v => {this.setState({projectId : v.value, issueTypeId : null})}}
+                                            options={projects.map((v)=>{return {label : v['name'], value : v['id']}})}
+                                            placeholder="Select a project"
+                                        />
+                                    </React.Fragment>
+                                )}
+                            </Field>
+                            <Field label="IssueTypes" name="issue types" >
+                                {({ fieldProps, error, meta: { valid } }) => {
+                                    const project = projectId ? projects.filter((v) => v.id === projectId)[0] : null;
+                                    console.log(project);
+                                    const options = project ? project.issuetypes.map((v) => {
+                                        return {label: v['name'], value: v['id']}
+                                    }) : [];
 
-                        return <React.Fragment>
-                            <Select
-                                onChange={issueTypeId => this.setState({issueTypeId})}
-                                options={options}
-                                placeholder="Select a project"
-                                isOptionDisabled={() => {
-                                    return (!projectId);
+                                    return <React.Fragment>
+                                        <Select
+                                            onChange={v => this.setState({issueTypeId : v.value})}
+                                            options={options}
+                                            placeholder="Select a project"
+                                            isOptionDisabled={() => {
+                                                return (!projectId);
+                                            }}
+                                        />
+                                    </React.Fragment>
                                 }}
-                            />
-                        </React.Fragment>
-                    }}
-                </Field>
-                </React.Fragment>
-
+                            </Field>
+                            <FormFooter>
+                            <ButtonGroup>
+                                <Button type="submit" appearance="primary">Save</Button>
+                            </ButtonGroup>
+                        </FormFooter>
+                        </form>
+                    )}
+                </Form>
             );
         }
 
         return (
             <div className="popupContainer">
                 <p>Here is something to choose before we start</p>
-                {isLoaded ? renderForm() :
-                    <Spinner
-                    delay={0}
-                    invertColor={false}
-                    size="large"
-                    onComplete={()=>{}}
-                    isCompleting={isLoaded}
-                />}
-                <Button onClick={this.onClickSaveButton}>Save</Button>
+                    {isLoaded ? renderForm() :
+                        <Spinner
+                        delay={0}
+                        invertColor={false}
+                        size="large"
+                        onComplete={()=>{}}
+                        isCompleting={isLoaded}
+                    />}
             </div>
         )
     }

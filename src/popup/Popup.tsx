@@ -1,9 +1,8 @@
 import * as React from 'react';
 import './Popup.scss';
-import Button, { ButtonGroup } from '@atlaskit/button'
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button'
+import ModalDialog, {ModalTransition} from '@atlaskit/modal-dialog';
 import Setting from './container/Setting';
-import CreateIssue from './container/CreateIssue';
 import {ModalContainerList} from "./types/enum";
 
 interface AppProps {}
@@ -11,10 +10,15 @@ interface AppProps {}
 interface AppState {
     isLoggedIn : boolean,
     isOpen : boolean,
-    projectId : number | null,
+    projectId : string | null,
+    issueTypeId : string | null,
     currentContainer : ModalContainerList
 }
 
+interface SettingVO {
+    projectId : string,
+    issueTypeId : string
+}
 export default class Popup extends React.Component<AppProps, AppState> {
     constructor(props: AppProps, state: AppState) {
         super(props, state);
@@ -22,7 +26,8 @@ export default class Popup extends React.Component<AppProps, AppState> {
             isOpen : false,
             isLoggedIn : true,
             currentContainer : ModalContainerList.Setting,
-            projectId : null
+            projectId : null,
+            issueTypeId : null,
         };
         this.onModalClose = this.onModalClose.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this);
@@ -54,9 +59,11 @@ export default class Popup extends React.Component<AppProps, AppState> {
         this.changeModalState(false);
     }
 
-    onSettingSave(projectId : number){
+    onSettingSave(settingVo : SettingVO){
         this.setState({
-            projectId : projectId
+            projectId : settingVo.projectId,
+            issueTypeId : settingVo.issueTypeId,
+            currentContainer : ModalContainerList.CreateIssue
         });
     }
 
