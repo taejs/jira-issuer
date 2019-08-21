@@ -4,6 +4,7 @@ import Button from '@atlaskit/button'
 import ModalDialog, {ModalTransition} from '@atlaskit/modal-dialog';
 import Setting from './container/Setting';
 import {ModalContainerList} from "./types/enum";
+import CreateIssue from "./container/CreateIssue";
 
 interface AppProps {}
 
@@ -74,8 +75,8 @@ export default class Popup extends React.Component<AppProps, AppState> {
             switch(currentContainer) {
                 case ModalContainerList.Setting:
                     return <div ref={ref} {...props}><Setting onSettingSave={this.onSettingSave}></Setting></div>
-                /*case ModalContainerList.CreateIssue:
-                    return <div ref={ref} {...props}><CreateIssue></CreateIssue></div>*/
+                case ModalContainerList.CreateIssue:
+                    return <div ref={ref} {...props} {...this.state}><CreateIssue></CreateIssue></div>
                 default:
                     return <div ref={ref} {...props}></div>;
             }

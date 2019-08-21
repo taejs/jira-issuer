@@ -1,15 +1,27 @@
 import * as React from 'react';
 import Button, { ButtonGroup } from '@atlaskit/button'
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
-import Form, { Field, CheckboxField } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import Select from '@atlaskit/select';
+import FieldTextArea, { FieldTextAreaStateless } from '@atlaskit/field-text-area';
+import Form, {
+    CheckboxField,
+    Field,
+    FormFooter,
+    HelperMessage,
+    ErrorMessage,
+    ValidMessage
+} from '@atlaskit/form';
 
 interface AppProps {
+    projectId : string | null,
+    issueTypeId : string | null,
 }
 
 interface AppState {
-    service : string
+    service : string,
+    description : string,
+    summary : string
 }
 
 
@@ -19,13 +31,44 @@ export default class CreateIssue extends React.Component<AppProps, AppState> {
         this.createIssue = this.createIssue.bind(this);
     }
 
+    onDescriptionChange = (event: any) => {
+        this.setState({
+            description : event.target.value
+        });
+    };
+
+    onSummaryChange= (event: any) => {
+        this.setState({
+            summary : event.target.value
+        });
+    };
+
     createIssue() {
         this.onFormSubmit();
     }
 
     onFormSubmit() {
         //TODO request jira api
-        console.log('form submit');
+        console.log('Create Issue : form submit');
+
+        chrome.runtime.sendMessage({
+            api: 'rest/api/3/issue/createmeta',
+            body : {
+                "fields": {
+                    "project":
+                        {
+                            "id": this.props.projectId
+                        },
+                    "summary": this.state.summary,
+                    "description": this.state.description,
+                    "issuetype": {
+                        "id": this.props.issueTypeId
+                    }
+                }
+            }
+        }, function(response) {
+            console.log(response);
+        }.bind(this));
     }
 
     render() {
@@ -44,12 +87,20 @@ export default class CreateIssue extends React.Component<AppProps, AppState> {
                     label="summary"
                     defaultValue=""
                     isRequired
+                    onChange={this.onSummaryChange}
                     validate={value=> (value.length < 8 ? 'TOO_SHORT' : undefined)}>
                     {({fieldProps}) => (
                         <TextField {...fieldProps} autoComplete="off"/>
                     )}
                 </Field>
-                <Field
+
+                <FieldTextArea
+                    label="description"
+                    isSpellCheckEnabled={false}
+                    onChange={this.onDescriptionChange}
+                    required
+                />
+                {/*<Field
                     name="서비스&메뉴"
                     label="서비스&메뉴">
                     {({fieldProps}) => (
@@ -78,18 +129,18 @@ export default class CreateIssue extends React.Component<AppProps, AppState> {
 
                                     console.log(this);
                                     return [{label: 'None', value : ''}];
-                                    /*const {service} = this.state;
+                                    const {service} = this.state;
                                     console.log(service);
 
                                     let result = map[service] || [];
                                     result.push([{label: 'None', value : ''}])
-                                    return result;*/
+                                    return result;
                                 })()}
                                 placeholder="메뉴"
                             />
                         </React.Fragment>
                     )}
-                </Field>
+                </Field>*/}
             </React.Fragment>
         )
 
@@ -97,9 +148,14 @@ export default class CreateIssue extends React.Component<AppProps, AppState> {
             <Form onSubmit={this.onFormSubmit}>
                 {({formProps}) => (
                     <form {...formProps}>
-                        {}
+                        {form()}
                     </form>
                 )}
+                <FormFooter>
+                    <ButtonGroup>
+                        <Button type="submit" appearance="primary">Save</Button>
+                    </ButtonGroup>
+                </FormFooter>
             </Form>
         )
     }

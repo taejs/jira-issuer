@@ -29,6 +29,7 @@
   "dependencies": {
     "@atlaskit/button": "^13.1.0",
     "@atlaskit/field-text": "^9.0.3",
+    "@atlaskit/field-text-area": "^6.0.9",
     "@atlaskit/form": "^6.1.6",
     "@atlaskit/modal-dialog": "^10.1.0",
     "@atlaskit/select": "^10.0.2",

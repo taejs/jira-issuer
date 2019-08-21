@@ -86,12 +86,14 @@ chrome.storage.local.clear();
             chrome.storage.local.get(['ACCESS_TOKEN', 'TOKEN_TYPE', 'CLOUD_ID'], function(items) {
                 var callApi = function(api, ACCESS_TOKEN, TOKEN_TYPE, CLOUD_ID) {
                     let myHeaders = new Headers();
+                    let myBody = request.body? JSON.stringify(request.body) : null;
 
                     myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
                     myHeaders.append("Accept", `application/json`);
 
                     fetch(`https://api.atlassian.com/ex/jira/${CLOUD_ID}/${request.api}`, {
-                        headers : myHeaders
+                        headers : myHeaders,
+                        body : myBody
                     }).then(v => v.json())
                     .then(v=> {
                         chrome.storage.local.set({ "ACCESS_TOKEN": ACCESS_TOKEN }, function(){
