@@ -85,7 +85,7 @@ export default class Setting extends React.Component<AppProps, AppState> {
     }
 
     onFormSubmit(e) {
-      e.preventDefault();
+    console.log(e);
 
       const {projectId, issueTypeId} = this.state;
       this.props.onSettingSave({
@@ -135,8 +135,12 @@ export default class Setting extends React.Component<AppProps, AppState> {
 
                                     return <React.Fragment>
                                         <Select
-                                            value={this.state.issueTypeId || null}
-                                            onChange={v => this.setState({issueTypeId : v.value})}
+                                            onChange={v => {
+                                                console.log(v);
+
+                                                this.setState({issueTypeId : v.value})
+                                                console.log(this.state);
+                                            }}
                                             options={options}
                                             placeholder="Select a project"
                                             isOptionDisabled={() => {

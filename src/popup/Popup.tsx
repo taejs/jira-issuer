@@ -76,7 +76,7 @@ export default class Popup extends React.Component<AppProps, AppState> {
                 case ModalContainerList.Setting:
                     return <div ref={ref} {...props}><Setting onSettingSave={this.onSettingSave}></Setting></div>
                 case ModalContainerList.CreateIssue:
-                    return <div ref={ref} {...props} {...this.state}><CreateIssue></CreateIssue></div>
+                    return <div ref={ref} {...props}><CreateIssue {...this.state}></CreateIssue></div>
                 default:
                     return <div ref={ref} {...props}></div>;
             }
