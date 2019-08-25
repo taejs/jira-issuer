@@ -93,7 +93,8 @@ chrome.storage.local.clear();
 
                     fetch(`https://api.atlassian.com/ex/jira/${CLOUD_ID}/${request.api}`, {
                         headers : myHeaders,
-                        body : myBody
+                        body : myBody,
+                        method: myBody ? 'POST' : 'GET'
                     }).then(v => v.json())
                     .then(v=> {
                         chrome.storage.local.set({ "ACCESS_TOKEN": ACCESS_TOKEN }, function(){

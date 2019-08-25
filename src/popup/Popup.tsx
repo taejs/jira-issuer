@@ -65,10 +65,11 @@ export default class Popup extends React.Component<AppProps, AppState> {
             projectId : settingVo.projectId,
             issueTypeId : settingVo.issueTypeId,
             currentContainer : ModalContainerList.CreateIssue
-        });
+        }, () => {console.log(this.state)} );
     }
 
     render() {
+        console.log(this.state);
         const { isLoggedIn, isOpen } = this.state;
         const currentContainer = (props, ref) => {
             const {currentContainer} = this.state;
