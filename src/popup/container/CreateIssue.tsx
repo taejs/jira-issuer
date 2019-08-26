@@ -12,6 +12,7 @@ import Form, {
     ErrorMessage,
     ValidMessage
 } from '@atlaskit/form';
+import chromeAPIAdapter from "../../chromeAPIAdapter";
 
 interface AppProps {
     projectId : string | null,
@@ -55,21 +56,48 @@ export default class CreateIssue extends React.Component<AppProps, AppState> {
         //TODO request jira api
         console.log('Create Issue : form submit');
         const {summary, description} = this.state;
-        const {issueTypeId} = this.props;
+        const {issueTypeId, projectId} = this.props;
 
-        chrome.runtime.sendMessage({
+        chromeAPIAdapter.sendMessage({
             api: 'rest/api/3/issue',
-            body : JSON.stringify({
+            body : {
                 "fields": {
+                    "project": {
+                        "id": projectId
+                    },
                     "summary": summary || '-',
-                    "description": description,
+                    "description": {
+                        "type": "doc",
+                        "version": 1,
+                        "content": [
+                            {
+                                "type": "paragraph",
+                                "content": [
+                                    {
+                                        "text": description,
+                                        "type": "text"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
                     "issuetype": {
                         "id": issueTypeId
                     }
                 }
+            }
+        })
+        .then((v :Response) => v.json())
+        .then((response) => {
+            console.log('rest/api/3/issue', response);
+            const id = response['id'];
+            return chromeAPIAdapter.sendMessage({
+                api : `rest/api/3/issue/${id}`
             })
-        }, function(response) {
-            console.log(response);
+        })
+        .then((v :Response) => v.json())
+        .then((response) => {
+            console.log('rest/api/3/issue/{id}', response);
         });
     }
 

@@ -90,6 +90,7 @@ chrome.storage.local.clear();
 
                     myHeaders.append("Authorization", `${TOKEN_TYPE} ${ACCESS_TOKEN}`);
                     myHeaders.append("Accept", `application/json`);
+                    myHeaders.append("Content-Type", `application/json`);
 
                     fetch(`https://api.atlassian.com/ex/jira/${CLOUD_ID}/${request.api}`, {
                         headers : myHeaders,
