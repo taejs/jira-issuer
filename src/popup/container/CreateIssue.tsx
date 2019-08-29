@@ -87,13 +87,15 @@ export default class CreateIssue extends React.Component<AppProps, AppState> {
                 }
             }
         })
-        .then((v :Response) => v.json())
-        .then((response) => {
-            console.log('rest/api/3/issue', response);
-            const id = response['id'];
+        .then((response : Response) => {
+            const r = response.json;
+
+            const id = r['id'];
+            console.log('rest/api/3/issue', r);
+
             return chromeAPIAdapter.sendMessage({
                 api : `rest/api/3/issue/${id}`
-            })
+            });
         })
         .then((v :Response) => v.json())
         .then((response) => {
