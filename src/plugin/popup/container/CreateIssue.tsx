@@ -12,7 +12,7 @@ import Form, {
     ErrorMessage,
     ValidMessage
 } from '@atlaskit/form';
-import chromeAPIAdapter from "../../chromeAPIAdapter";
+import chromeAPIAdapter from "../../chrome/chromeAPIAdapter";
 
 interface AppProps {
     projectId : string | null,

@@ -94,6 +94,7 @@ export default class Setting extends React.Component<AppProps, AppState> {
       });
     }
 
+    //field 하나하나 컴포넌트로 빼야댄다
     componentDidMount() {
         console.log(this.state);
         /*chrome.runtime.sendMessage({ api: 'rest/api/3/issue/createmeta'}, function(response : CreateMetaProps) {
